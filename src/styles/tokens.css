@@ -1,0 +1,102 @@
+/*
+  NEBULA design tokens.
+  Rules come from the landing-page-design skill, Part B:
+  named text styles only (Heading, Title, Body, Button, Caption), built from the Tailwind scale, spacing only from the spacing table,
+  radii only from the Tailwind radius list, one motion curve, one typeface (Geist, plus Geist Mono for data).
+*/
+:root {
+  /* palette from the brief */
+  --space-black: #070b18;
+  --deep-blue: #182b55;
+  --violet: #7356d9;
+  --cyan: #27d8f2;
+  --ice: #e8f6ff;
+
+  --text: #eaf3ff;
+  --muted: rgb(234 243 255 / 0.66);
+  --faint: rgb(234 243 255 / 0.42);
+  --ok: #38f0c8;
+  --warn: #ffb35c;
+  --danger: #ff6b7d;
+
+  /* glass surfaces */
+  --glass: rgb(10 16 38 / 0.56);
+  --glass-strong: rgb(7 11 24 / 0.86);
+  --glass-hover: rgb(24 43 85 / 0.62);
+  --line: rgb(160 190 255 / 0.18);
+  --line-strong: rgb(160 205 255 / 0.36);
+  --glow-cyan: 0 0 24px rgb(39 216 242 / 0.35);
+  --glow-violet: 0 0 24px rgb(115 86 217 / 0.4);
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-base: 500ms;
+  --t-soft: 300ms;
+
+  /* spacing table */
+  --s-0: 0;
+  --s-25: 2px;
+  --s-50: 4px;
+  --s-75: 8px;
+  --s-100: 12px;
+  --s-200: 16px;
+  --s-300: 24px;
+  --s-400: 32px;
+  --s-500: 40px;
+  --s-600: 48px;
+  --s-700: 64px;
+  --s-800: 80px;
+  --s-900: 96px;
+
+  /* Tailwind radii */
+  --r-sm: 2px;
+  --r-base: 4px;
+  --r-md: 6px;
+  --r-lg: 8px;
+  --r-xl: 12px;
+  --r-2xl: 16px;
+  --r-3xl: 24px;
+  --r-full: 9999px;
+
+  --font: 'Geist Variable', 'Geist', system-ui, sans-serif;
+  --mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --gutter: max(var(--s-200), var(--safe-l));
+}
+
+/*
+  Named text styles from the landing-page-design skill, B1.
+  Every text element uses exactly one of these. Sizes sit on the Tailwind type scale.
+*/
+.heading-1 { font-size: 3.75rem; line-height: 1; font-weight: 600; }
+.heading-2 { font-size: 3rem; line-height: 1; font-weight: 600; }
+.heading-3 { font-size: 2.25rem; line-height: 2.5rem; font-weight: 600; }
+.heading-4 { font-size: 1.875rem; line-height: 2.25rem; font-weight: 600; }
+.heading-5 { font-size: 1.5rem; line-height: 2rem; font-weight: 600; }
+.heading-6 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 600; }
+.title-1 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 500; }
+.title-2 { font-size: 1.125rem; line-height: 1.75rem; font-weight: 500; }
+.title-3 { font-size: 1rem; line-height: 1.5rem; font-weight: 500; }
+.title-4 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
+.title-5 { font-size: 0.75rem; line-height: 1rem; font-weight: 500; }
+.body-1 { font-size: 1rem; line-height: 1.5rem; font-weight: 600; }
+.body-2 { font-size: 1rem; line-height: 1.5rem; font-weight: 500; }
+.body-3 { font-size: 1rem; line-height: 1.5rem; font-weight: 400; }
+.body-4 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; }
+.body-5 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
+.body-6 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 400; }
+.button-lg { font-size: 1.125rem; line-height: 1.75rem; font-weight: 600; }
+.button-md { font-size: 1rem; line-height: 1.5rem; font-weight: 600; }
+.button-sm { font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; }
+.button-xsm { font-size: 0.75rem; line-height: 1rem; font-weight: 600; }
+.caption-1 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
+.caption-2 { font-size: 0.875rem; line-height: 1.25rem; font-weight: 400; }
+.caption-3 { font-size: 0.75rem; line-height: 1rem; font-weight: 600; }
+.caption-4 { font-size: 0.75rem; line-height: 1rem; font-weight: 500; }
+.caption-5 { font-size: 0.75rem; line-height: 1rem; font-weight: 400; }
+
+.mono { font-family: var(--mono); font-feature-settings: 'tnum'; }

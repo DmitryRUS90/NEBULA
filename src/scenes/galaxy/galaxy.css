@@ -1,0 +1,220 @@
+.galaxy-top {
+  display: grid;
+  gap: var(--s-100);
+  max-width: 420px;
+}
+.galaxy-hint {
+  color: var(--muted);
+}
+.hint-touch {
+  display: none;
+}
+@media (pointer: coarse) {
+  .hint-desktop {
+    display: none;
+  }
+  .hint-touch {
+    display: inline;
+  }
+}
+
+.galaxy-tools {
+  position: absolute;
+  right: var(--gutter);
+  top: calc(var(--s-800) + var(--s-100));
+  display: grid;
+  gap: var(--s-75);
+}
+.galaxy-list-toggle {
+  display: inline-flex;
+}
+
+/* object list */
+.galaxy-list {
+  position: absolute;
+  left: var(--gutter);
+  bottom: calc(var(--s-300) + var(--safe-b));
+  width: 288px;
+  max-height: 46vh;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  overflow: hidden;
+}
+.galaxy-progress {
+  margin-bottom: var(--s-100);
+}
+.galaxy-items {
+  display: grid;
+  gap: var(--s-25);
+  overflow-y: auto;
+  margin: 0 calc(var(--s-100) * -1);
+  padding: 0 var(--s-100);
+}
+.galaxy-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-100);
+  width: 100%;
+  padding: var(--s-75) var(--s-100);
+  border-radius: var(--r-lg);
+  text-align: left;
+  transition:
+    background-color var(--t-soft) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+.galaxy-item:hover {
+  background: rgb(160 190 255 / 0.1);
+}
+.galaxy-item:active {
+  transform: scale(0.98);
+}
+.galaxy-item.is-active {
+  background: rgb(39 216 242 / 0.16);
+}
+.galaxy-swatch {
+  flex: none;
+  width: var(--s-100);
+  height: var(--s-100);
+  border-radius: var(--r-full);
+}
+.galaxy-item-text {
+  display: grid;
+  min-width: 0;
+}
+.galaxy-item-kind {
+  color: var(--faint);
+}
+.galaxy-item-done {
+  margin-left: auto;
+  color: var(--ok);
+}
+
+/* detail card */
+.galaxy-card {
+  position: absolute;
+  right: var(--gutter);
+  bottom: calc(var(--s-300) + var(--s-600) + var(--s-200) + var(--safe-b));
+  width: 360px;
+  max-height: calc(100% - var(--s-900) - var(--s-900));
+  overflow-y: auto;
+  display: grid;
+  gap: var(--s-100);
+}
+.galaxy-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-100);
+}
+.galaxy-card-name {
+  margin-top: var(--s-25);
+}
+.galaxy-card-sector {
+  margin-top: var(--s-25);
+  color: var(--faint);
+}
+.galaxy-card-desc {
+  color: var(--muted);
+}
+.galaxy-scan-result {
+  display: flex;
+  gap: var(--s-75);
+  align-items: flex-start;
+  padding: var(--s-100);
+  border: 1px solid rgb(56 240 200 / 0.4);
+  border-radius: var(--r-lg);
+  background: rgb(56 240 200 / 0.08);
+  color: var(--ok);
+}
+.galaxy-scan-result svg {
+  flex: none;
+  margin-top: var(--s-25);
+}
+.galaxy-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-75);
+  margin-top: var(--s-75);
+}
+.scan-bar {
+  position: absolute;
+  left: var(--s-200);
+  right: var(--s-200);
+  bottom: var(--s-75);
+  height: 2px;
+  border-radius: var(--r-full);
+  background: var(--cyan);
+  transform-origin: left center;
+  animation: scan 1.3s var(--ease) forwards;
+}
+@keyframes scan {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* labels drawn on top of the 3D objects */
+.galaxy-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-75);
+  padding: var(--s-25) var(--s-75);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  background: var(--glass);
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color var(--t-soft) var(--ease), border-color var(--t-soft) var(--ease);
+}
+.galaxy-label-dot {
+  width: var(--s-75);
+  height: var(--s-75);
+  border-radius: var(--r-full);
+  background: var(--faint);
+}
+.galaxy-label.is-selected {
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+.galaxy-label.is-scanned .galaxy-label-dot {
+  background: var(--ok);
+}
+
+@media (max-width: 899px) {
+  .galaxy-list {
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: calc(var(--s-300) + var(--s-600) + var(--s-100) + var(--safe-b));
+    width: auto;
+    max-height: 40vh;
+    display: none;
+  }
+  .galaxy-list.is-open {
+    display: grid;
+  }
+  .galaxy-card {
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: calc(var(--s-300) + var(--safe-b));
+    width: auto;
+    max-height: 56vh;
+  }
+  .galaxy-ui:has(.galaxy-card) .scene-next,
+  .galaxy-ui:has(.galaxy-list.is-open) .scene-next {
+    display: none;
+  }
+  .scene-next {
+    left: var(--gutter);
+  }
+  .scene-next .btn {
+    width: 100%;
+  }
+}
+@media (min-width: 900px) {
+  .galaxy-list-toggle {
+    display: none;
+  }
+}

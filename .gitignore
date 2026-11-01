@@ -1,0 +1,41 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+build/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# logs and temporary files
+*.log
+npm-debug.log*
+.tmp/
+tmp/
+*.tmp
+*.bak
+*.orig
+*.swp
+.cache/
+
+# operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editors
+.idea/
+.vscode/
+*.sublime-*
+
+# Claude Code local files (the skills folder stays tracked)
+.claude/settings.local.json
+.claude/*.local.*

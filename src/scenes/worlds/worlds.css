@@ -1,0 +1,175 @@
+.worlds-top {
+  display: grid;
+  gap: var(--s-100);
+  max-width: 420px;
+}
+.worlds-hint {
+  color: var(--muted);
+}
+
+.worlds-panel {
+  position: absolute;
+  left: var(--gutter);
+  bottom: calc(var(--s-300) + var(--safe-b));
+  width: 400px;
+  max-height: calc(100% - var(--s-900) - var(--s-900) - var(--s-100));
+  overflow-y: auto;
+  display: grid;
+  gap: var(--s-200);
+}
+.worlds-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-100);
+}
+.worlds-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-75);
+  color: var(--muted);
+}
+.worlds-dots {
+  display: inline-flex;
+  gap: var(--s-50);
+}
+.worlds-dots i {
+  width: var(--s-75);
+  height: var(--s-75);
+  border-radius: var(--r-full);
+  background: rgb(160 190 255 / 0.22);
+  transition: background-color var(--t-soft) var(--ease);
+}
+.worlds-dots i.is-on {
+  background: var(--ok);
+}
+
+/* world choices */
+.worlds-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-75);
+}
+.worlds-choice {
+  --accent: var(--cyan);
+  display: grid;
+  justify-items: start;
+  gap: var(--s-25);
+  padding: var(--s-100);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: rgb(7 11 24 / 0.5);
+  text-align: left;
+  transition:
+    background-color var(--t-soft) var(--ease),
+    border-color var(--t-soft) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+.worlds-choice:hover {
+  background: var(--glass-hover);
+  border-color: var(--line-strong);
+}
+.worlds-choice:active {
+  transform: scale(0.98);
+}
+.worlds-choice.is-active {
+  border-color: var(--accent);
+  background: rgb(24 43 85 / 0.7);
+}
+.worlds-choice-dot {
+  width: var(--s-100);
+  height: var(--s-100);
+  margin-bottom: var(--s-50);
+  border-radius: var(--r-full);
+  background: var(--accent);
+  box-shadow: 0 0 16px var(--accent);
+}
+.worlds-choice-class {
+  color: var(--faint);
+}
+
+/* details */
+.worlds-info-head {
+  display: grid;
+  gap: var(--s-25);
+}
+.worlds-desc {
+  margin-top: var(--s-100);
+  color: var(--muted);
+}
+.worlds-metrics {
+  display: grid;
+  gap: var(--s-100);
+  margin-top: var(--s-200);
+}
+.worlds-metrics li {
+  display: grid;
+  gap: var(--s-50);
+}
+.worlds-metric-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-100);
+}
+.worlds-metric-label {
+  color: var(--faint);
+}
+.worlds-log {
+  display: flex;
+  gap: var(--s-75);
+  align-items: flex-start;
+  margin-top: var(--s-200);
+  padding: var(--s-100);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  color: var(--muted);
+}
+.worlds-log svg {
+  flex: none;
+  margin-top: var(--s-25);
+  color: var(--cyan);
+}
+
+/* the planet sits above the panel on narrow and square screens */
+@media (max-aspect-ratio: 11/10) {
+  .worlds-hint {
+    display: none;
+  }
+  .worlds-panel {
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: calc(var(--s-300) + var(--s-600) + var(--s-100) + var(--safe-b));
+    width: auto;
+    max-height: 44vh;
+    gap: var(--s-100);
+  }
+  .worlds-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-100) var(--s-200);
+    margin-top: var(--s-100);
+  }
+  .worlds-desc,
+  .worlds-log {
+    margin-top: var(--s-75);
+  }
+  .scene-next {
+    left: var(--gutter);
+  }
+  .scene-next .btn {
+    width: 100%;
+  }
+}
+
+/* short landscape screens such as phones on their side */
+@media (max-height: 520px) and (min-aspect-ratio: 12/10) {
+  .worlds-hint {
+    display: none;
+  }
+  .worlds-panel {
+    width: 360px;
+    max-height: calc(100% - var(--s-800) - var(--s-800));
+  }
+  .worlds-log {
+    display: none;
+  }
+}

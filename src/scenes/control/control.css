@@ -1,0 +1,292 @@
+/* Scene 05, Control center. Spacing, radii and type come from tokens.css. */
+
+.ctl-scroll {
+  position: absolute;
+  inset: var(--s-800) 0 0 0;
+  padding: var(--s-100) var(--gutter) calc(var(--s-400) + var(--safe-b));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(160 190 255 / 0.3) transparent;
+}
+
+.ctl-head,
+.ctl-grid {
+  max-width: 1280px;
+  margin-inline: auto;
+}
+.ctl-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-200);
+  margin-bottom: var(--s-200);
+}
+
+.ctl-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-200);
+}
+.ctl-col {
+  display: contents;
+}
+
+.ctl-muted {
+  color: var(--muted);
+}
+.ctl-faint {
+  color: var(--faint);
+}
+.ctl-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-75);
+  color: var(--ok);
+}
+.ctl-bad {
+  color: var(--warn);
+}
+.ctl-empty {
+  padding: var(--s-100) 0;
+}
+
+/* order on stacked layouts: radar first, then what you inspect, then what you adjust */
+.ctl-radar-panel { order: 1; }
+.ctl-contacts { order: 2; }
+.ctl-power { order: 3; }
+.ctl-reactor { order: 4; }
+.ctl-switches { order: 5; }
+.ctl-diag { order: 6; }
+.ctl-log { order: 7; }
+
+/* ---------- power ---------- */
+.ctl-budget {
+  display: grid;
+  gap: var(--s-50);
+  margin-bottom: var(--s-200);
+}
+.ctl-budget-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-100);
+}
+.ctl-sliders {
+  display: grid;
+  gap: var(--s-100);
+}
+.ctl-slider {
+  display: grid;
+  gap: var(--s-25);
+}
+
+/* ---------- reactor ---------- */
+.ctl-reactor {
+  display: grid;
+  gap: var(--s-100);
+  transition: border-color var(--t-soft) var(--ease);
+}
+.ctl-temp-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-100);
+}
+.ctl-temp {
+  color: var(--text);
+}
+.ctl-temp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-50);
+  color: var(--muted);
+}
+.ctl-temp-status.is-hot {
+  color: var(--warn);
+}
+.ctl-gauge {
+  position: relative;
+  padding: var(--s-50) 0;
+}
+.ctl-gauge .meter {
+  height: var(--s-75);
+}
+.ctl-mark {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: var(--r-full);
+  background: var(--warn);
+}
+.ctl-mark-limit {
+  background: var(--danger);
+}
+.ctl-reactor.is-critical {
+  border-color: rgb(255 107 125 / 0.7);
+}
+.ctl-reactor.is-critical .ctl-temp,
+.ctl-reactor.is-critical .ctl-temp-status {
+  color: var(--danger);
+}
+.ctl-reactor.is-critical .meter > span {
+  background: var(--danger);
+}
+.btn-danger {
+  border-color: rgb(255 107 125 / 0.5);
+  color: var(--danger);
+}
+.btn-danger:hover:not(:disabled) {
+  background: rgb(255 107 125 / 0.16);
+  border-color: var(--danger);
+}
+
+/* ---------- radar ---------- */
+.ctl-radar-wrap {
+  width: min(100%, 520px, 52vh);
+  aspect-ratio: 1;
+  margin: 0 auto var(--s-100);
+}
+.ctl-radar-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: manipulation;
+}
+.ctl-radar-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-100);
+}
+
+/* ---------- contacts ---------- */
+.ctl-contacts {
+  display: grid;
+  gap: var(--s-100);
+}
+.ctl-detail {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-75);
+}
+.ctl-contact-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: var(--s-50);
+  max-height: 216px;
+  overflow-y: auto;
+}
+.ctl-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-100);
+  width: 100%;
+  padding: var(--s-75) var(--s-100);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  text-align: left;
+  transition:
+    background-color var(--t-soft) var(--ease),
+    border-color var(--t-soft) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+.ctl-contact:hover {
+  background: rgb(160 190 255 / 0.1);
+}
+.ctl-contact:active {
+  transform: scale(0.98);
+}
+.ctl-contact.is-active {
+  background: rgb(39 216 242 / 0.16);
+  border-color: rgb(39 216 242 / 0.5);
+}
+
+/* ---------- switches and diagnostics ---------- */
+.ctl-switch-list {
+  display: grid;
+  gap: var(--s-75);
+}
+.ctl-diag-list {
+  display: grid;
+  gap: var(--s-100);
+}
+.ctl-diag-list li {
+  display: grid;
+  gap: var(--s-50);
+}
+.ctl-diag-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-100);
+}
+
+/* ---------- log ---------- */
+.ctl-log-list {
+  display: grid;
+  gap: var(--s-75);
+  max-height: 184px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.ctl-log-item {
+  display: grid;
+  grid-template-columns: var(--s-600) minmax(0, 1fr);
+  gap: var(--s-75);
+  color: var(--muted);
+}
+.ctl-log-item.is-ok .body-6 {
+  color: var(--ok);
+}
+.ctl-log-item.is-warn .body-6 {
+  color: var(--warn);
+}
+
+/* ---------- tablet: two columns, radar across the top ---------- */
+@media (min-width: 720px) {
+  .ctl-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+  .ctl-radar-panel {
+    grid-column: 1 / -1;
+  }
+  .ctl-contacts {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- desktop: three columns ---------- */
+@media (min-width: 1080px) {
+  .ctl-grid {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr) minmax(0, 320px);
+  }
+  .ctl-col {
+    display: grid;
+    align-content: start;
+    gap: var(--s-200);
+  }
+  .ctl-radar-panel,
+  .ctl-contacts,
+  .ctl-power,
+  .ctl-reactor,
+  .ctl-switches,
+  .ctl-diag,
+  .ctl-log {
+    order: 0;
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 479px) {
+  .ctl-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ctl-head .btn {
+    width: 100%;
+  }
+}

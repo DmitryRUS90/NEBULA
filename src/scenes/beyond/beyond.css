@@ -1,0 +1,212 @@
+/* Scene 07, Beyond. Desktop: tagline on the left, results column on the right. Smaller screens: scrollable lower sheet. */
+.beyond-ui {
+  display: block;
+}
+.beyond-left {
+  display: grid;
+  gap: var(--s-400);
+  align-content: start;
+  max-width: 420px;
+}
+.beyond-tagline {
+  max-width: 420px;
+  text-wrap: balance;
+}
+.beyond-tagline .word-reveal {
+  display: inline;
+}
+
+.beyond-col {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: calc(var(--s-200) + var(--safe-b));
+  max-height: 54%;
+  overflow-y: auto;
+  display: grid;
+  gap: var(--s-100);
+  align-content: start;
+  padding: var(--s-100) 0;
+  pointer-events: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.beyond-col .heading-3 {
+  padding: 0 var(--s-50);
+}
+.beyond-index-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-100);
+  margin-bottom: var(--s-100);
+}
+.beyond-index-unit {
+  color: var(--muted);
+}
+.beyond-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-75);
+  margin-top: var(--s-200);
+}
+.beyond-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-100) var(--s-200);
+  margin: 0;
+}
+.beyond-stats dt {
+  color: var(--faint);
+}
+.beyond-stats dd {
+  margin: 0;
+}
+.beyond-core {
+  grid-column: 1 / -1;
+}
+.beyond-core.is-won dd.mono {
+  color: var(--ok);
+}
+.beyond-core.is-failed dd.mono {
+  color: var(--warn);
+}
+.beyond-core.is-none dd.mono {
+  color: var(--muted);
+}
+.beyond-core-sub {
+  color: var(--faint);
+}
+
+.beyond-ach {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--s-75);
+}
+.beyond-ach-item {
+  display: flex;
+  gap: var(--s-100);
+  align-items: flex-start;
+  padding: var(--s-100);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  opacity: 0.55;
+  transition:
+    opacity var(--t-soft) var(--ease),
+    border-color var(--t-soft) var(--ease),
+    background-color var(--t-soft) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+.beyond-ach-item:hover,
+.beyond-ach-item:focus-visible {
+  opacity: 1;
+  background: rgb(160 190 255 / 0.08);
+}
+.beyond-ach-item:active {
+  transform: scale(0.98);
+}
+.beyond-ach-item.is-earned {
+  opacity: 1;
+  border-color: rgb(39 216 242 / 0.5);
+  box-shadow: var(--glow-cyan);
+}
+.beyond-ach-icon {
+  flex: none;
+  color: var(--faint);
+}
+.is-earned .beyond-ach-icon {
+  color: var(--cyan);
+}
+.beyond-ach-text {
+  display: grid;
+  min-width: 0;
+}
+.beyond-ach-desc {
+  color: var(--muted);
+}
+
+.beyond-empty {
+  display: flex;
+  gap: var(--s-100);
+  align-items: flex-start;
+  margin-bottom: var(--s-100);
+  color: var(--muted);
+}
+.beyond-empty svg {
+  flex: none;
+  color: var(--cyan);
+}
+.beyond-empty.is-done svg {
+  color: var(--ok);
+}
+.beyond-rem {
+  display: grid;
+  gap: var(--s-50);
+}
+.beyond-rem-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-100);
+  width: 100%;
+  padding: var(--s-75) var(--s-100);
+  border: 1px solid transparent;
+  border-radius: var(--r-lg);
+  text-align: left;
+  transition:
+    background-color var(--t-soft) var(--ease),
+    border-color var(--t-soft) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+.beyond-rem-row:hover:not(:disabled) {
+  background: rgb(160 190 255 / 0.1);
+}
+.beyond-rem-row:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.beyond-rem-row:disabled {
+  opacity: 0.5;
+}
+.beyond-rem-row.is-next {
+  border-color: rgb(39 216 242 / 0.5);
+  background: rgb(39 216 242 / 0.1);
+}
+.beyond-rem-text {
+  display: grid;
+}
+.beyond-rem-detail {
+  color: var(--muted);
+}
+.beyond-next-tag {
+  margin-left: var(--s-75);
+  padding: var(--s-25) var(--s-75);
+  border-radius: var(--r-md);
+  background: var(--cyan);
+  color: var(--space-black);
+}
+
+@media (min-width: 1100px) {
+  .beyond-col {
+    left: auto;
+    right: var(--gutter);
+    top: calc(var(--s-800) + var(--s-100));
+    bottom: calc(var(--s-300) + var(--safe-b));
+    width: 400px;
+    max-height: none;
+    padding: 0;
+  }
+  .beyond-left {
+    position: absolute;
+    left: var(--gutter);
+    top: calc(var(--s-800) + var(--s-100));
+    bottom: calc(var(--s-300) + var(--safe-b));
+    grid-template-rows: auto 1fr;
+  }
+  .beyond-left .beyond-tagline {
+    align-self: end;
+  }
+}
+@media (max-width: 1099px) {
+  .beyond-left {
+    max-width: none;
+  }
+}

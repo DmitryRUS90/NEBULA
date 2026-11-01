@@ -1,0 +1,188 @@
+/* Laboratory overlay. Spacing, radii, type and motion come from the shared tokens. */
+.lab-top {
+  display: grid;
+  gap: var(--s-100);
+  max-width: 420px;
+}
+.lab-hint {
+  color: var(--muted);
+}
+.lab-hint-touch {
+  display: none;
+}
+@media (pointer: coarse) {
+  .lab-hint-desktop {
+    display: none;
+  }
+  .lab-hint-touch {
+    display: inline;
+  }
+}
+
+.lab-panel {
+  position: absolute;
+  right: var(--gutter);
+  top: var(--s-800);
+  width: 320px;
+  max-height: calc(100% - var(--s-800) - var(--s-900));
+  overflow-y: auto;
+}
+.lab-controls-body {
+  display: grid;
+  gap: var(--s-200);
+}
+.lab-group {
+  display: grid;
+  gap: var(--s-100);
+}
+.lab-note {
+  min-height: var(--s-500);
+  color: var(--muted);
+}
+
+.lab-nodes-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-100);
+}
+.lab-count {
+  color: var(--faint);
+}
+.lab-nodes {
+  display: grid;
+  gap: var(--s-50);
+}
+.lab-node {
+  display: flex;
+  align-items: center;
+  gap: var(--s-100);
+  width: 100%;
+  padding: var(--s-75) var(--s-100);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: rgb(10 16 38 / 0.4);
+  text-align: left;
+  transition:
+    background-color var(--t-soft) var(--ease),
+    border-color var(--t-soft) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+.lab-node:hover {
+  background: var(--glass-hover);
+  border-color: var(--line-strong);
+}
+.lab-node:active {
+  transform: scale(0.98);
+}
+.lab-node.is-on {
+  border-color: rgb(39 216 242 / 0.5);
+  background: rgb(39 216 242 / 0.1);
+}
+.lab-swatch {
+  flex: none;
+  width: var(--s-100);
+  height: var(--s-100);
+  border-radius: var(--r-full);
+  transition: box-shadow var(--t-soft) var(--ease);
+}
+.lab-node-text {
+  display: grid;
+  min-width: 0;
+}
+.lab-node-hint {
+  color: var(--faint);
+}
+.lab-node-state {
+  margin-left: auto;
+  color: var(--faint);
+}
+.lab-node.is-on .lab-node-state {
+  color: var(--ok);
+}
+
+.lab-readouts {
+  position: absolute;
+  left: var(--gutter);
+  bottom: calc(var(--s-300) + var(--safe-b));
+  width: 288px;
+}
+.lab-readouts-list {
+  display: grid;
+  gap: var(--s-100);
+  margin: 0;
+}
+.lab-readout {
+  display: grid;
+  gap: var(--s-50);
+}
+.lab-readout-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-100);
+}
+.lab-readout dt {
+  color: var(--faint);
+}
+.lab-locked {
+  display: flex;
+  align-items: center;
+  gap: var(--s-75);
+  margin-top: var(--s-100);
+  color: var(--ok);
+}
+
+/* actions: bottom right on large screens, a stack on small ones */
+.lab-dock {
+  position: absolute;
+  right: var(--gutter);
+  bottom: calc(var(--s-300) + var(--safe-b));
+  display: flex;
+  align-items: center;
+  gap: var(--s-100);
+}
+.lab-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-100);
+}
+.lab-caret {
+  transition: transform var(--t-base) var(--ease);
+}
+.lab-caret.is-open {
+  transform: rotate(180deg);
+}
+
+.lab-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-75);
+  margin: 0;
+  padding: var(--s-75) var(--s-100);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.lab-strip dt {
+  color: var(--faint);
+}
+
+@media (max-width: 899px) {
+  .lab-dock {
+    left: var(--gutter);
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lab-actions .btn:not(.btn-icon) {
+    flex: 1;
+  }
+  .lab-sheet {
+    max-height: min(46vh, 380px);
+    overflow-y: auto;
+  }
+  .lab-top {
+    max-width: 320px;
+  }
+}
