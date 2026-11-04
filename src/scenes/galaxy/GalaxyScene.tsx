@@ -13,7 +13,7 @@ import { GALAXY_OBJECTS, omega } from '../../data/galaxy';
 import { SOFT_POINT } from '../../gfx/glsl';
 import { getGlowTexture } from '../../gfx/textures';
 import { GalaxyObjectMesh } from './GalaxyObjectMesh';
-import { galaxyApi, galaxyClock } from './galaxyApi';
+import { galaxyApi, galaxyClock, galaxyLabels } from './galaxyApi';
 
 const MAX_R = 31;
 
@@ -155,6 +155,38 @@ export function GalaxyScene() {
       const len = off.length();
       const next = len + (focus.current.dist - len) * (1 - Math.exp(-dt * 2.4));
       camera.position.copy(c.target).add(off.setLength(next));
+    }
+  });
+
+  // Screen positions of the overlay labels. Written straight to the DOM, same frame as the render, no React state.
+  const labelWorld = useMemo(() => new Vector3(), []);
+  const labelView = useMemo(() => new Vector3(), []);
+  const labelLast = useRef<Record<string, { el: HTMLElement; x: number; y: number; z: number; on: boolean }>>({});
+  useFrame(({ size }) => {
+    camera.updateMatrixWorld();
+    const zScale = -20 / (camera.far - camera.near);
+    for (const o of GALAXY_OBJECTS) {
+      const el = galaxyLabels[o.id];
+      const g = groups.current[o.id];
+      if (!el || !g) continue;
+      // same anchor the old label used: just above the object
+      g.getWorldPosition(labelWorld);
+      labelWorld.y += o.size + 0.9;
+      labelView.copy(labelWorld).applyMatrix4(camera.matrixWorldInverse);
+      const on = labelView.z < 0; // in front of the camera
+      // nearer labels sit above farther ones
+      const z = Math.round(zScale * labelWorld.distanceTo(camera.position) - zScale * camera.far);
+      labelWorld.project(camera);
+      const x = (labelWorld.x * 0.5 + 0.5) * size.width;
+      const y = (-labelWorld.y * 0.5 + 0.5) * size.height;
+      const last = labelLast.current[o.id];
+      const fresh = !last || last.el !== el;
+      if (fresh || last.on !== on) el.style.visibility = on ? 'visible' : 'hidden';
+      if (fresh || last.z !== z) el.style.zIndex = String(z);
+      if (fresh || Math.abs(last.x - x) > 0.01 || Math.abs(last.y - y) > 0.01) {
+        el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+      }
+      labelLast.current[o.id] = { el, x, y, z, on };
     }
   });
 

@@ -1,4 +1,3 @@
-import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import {
@@ -58,7 +57,6 @@ export function GalaxyObjectMesh({ obj, index, onGroup }: Props) {
   const spin = useRef<Group>(null);
   const hover = useRef(false);
   const selected = useStore((s) => s.galaxySelected === obj.id);
-  const scanned = useStore((s) => s.scanned.includes(obj.id));
   const galaxySelect = useStore((s) => s.galaxySelect);
   const glow = useMemo(() => getGlowTexture(), []);
   const color = useMemo(() => new Color(obj.color), [obj.color]);
@@ -211,13 +209,6 @@ export function GalaxyObjectMesh({ obj, index, onGroup }: Props) {
         <sphereGeometry args={[hitR, 12, 12]} />
         <meshBasicMaterial />
       </mesh>
-
-      <Html position={[0, obj.size + 0.9, 0]} center zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
-        <div className={`galaxy-label mono caption-4 ${selected ? 'is-selected' : ''} ${scanned ? 'is-scanned' : ''}`}>
-          <span className="galaxy-label-dot" />
-          {obj.name}
-        </div>
-      </Html>
     </group>
   );
 }

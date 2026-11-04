@@ -6,7 +6,7 @@ import { audio } from '../../core/audio';
 import { goTo } from '../../core/navigation';
 import { useStore } from '../../core/store';
 import { GALAXY_OBJECTS } from '../../data/galaxy';
-import { galaxyApi } from './galaxyApi';
+import { galaxyApi, galaxyLabels } from './galaxyApi';
 
 export function GalaxyUI() {
   const selectedId = useStore((s) => s.galaxySelected);
@@ -36,6 +36,22 @@ export function GalaxyUI() {
 
   return (
     <section className="scene-ui galaxy-ui" aria-label="Galaxy map">
+      {/* names drawn over the 3D objects, moved by the scene every frame. The object list below is the accessible version. */}
+      <div className="galaxy-labels" aria-hidden>
+        {GALAXY_OBJECTS.map((o) => (
+          <div
+            key={o.id}
+            ref={(el) => {
+              galaxyLabels[o.id] = el;
+            }}
+            className={`galaxy-label mono caption-4 ${selectedId === o.id ? 'is-selected' : ''} ${scanned.includes(o.id) ? 'is-scanned' : ''}`}
+          >
+            <span className="galaxy-label-dot" />
+            {o.name}
+          </div>
+        ))}
+      </div>
+
       <div className="galaxy-top">
         <SceneTitle n="02" name="Galaxy map" sub="Exploration" />
         <p className="galaxy-hint body-6">

@@ -156,7 +156,21 @@
   }
 }
 
-/* labels drawn on top of the 3D objects */
+/* labels drawn on top of the 3D objects. The layer sits under the panels, like the labels did inside the stage. */
+.galaxy-labels {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.galaxy-labels .galaxy-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  will-change: transform;
+}
 .galaxy-label {
   display: inline-flex;
   align-items: center;
