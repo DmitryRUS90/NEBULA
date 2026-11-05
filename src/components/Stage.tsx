@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Component, Suspense, useCallback, useRef, useState, type ReactNode } from 'react';
+import { Component, Suspense, useCallback, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { PerspectiveCamera } from 'three';
 import { fx } from '../core/fx';
 import { nextLowerTier, TIERS, TIER_LABEL } from '../core/perf';
@@ -126,17 +126,25 @@ class StageBoundary extends Component<BoundaryProps, { error: Error | null }> {
 export function Stage() {
   const tier = useStore((s) => s.tier);
   const cfg = TIERS[tier];
+  // The Canvas is only rebuilt by Try again and Switch to Lite. Quality changes and a restored graphics context keep it.
   const [epoch, setEpoch] = useState(0);
   const retry = useCallback(() => setEpoch((e) => e + 1), []);
+  // Antialiasing cannot change on a live context, so it is chosen when the Canvas is created and stays until the next rebuild.
+  // The object also has to stay the same between renders: a new one would be applied onto the renderer again.
+  const glConfig = useMemo(
+    () => ({ antialias: TIERS[useStore.getState().tier].aa, alpha: false, powerPreference: 'high-performance' as const }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [epoch],
+  );
 
   return (
     <div className="stage" aria-hidden>
       <StageBoundary onRetry={retry}>
         <Canvas
-          key={`${epoch}-${cfg.aa ? 'aa' : 'noaa'}`}
+          key={epoch}
           dpr={cfg.dpr}
           flat
-          gl={{ antialias: cfg.aa, alpha: false, powerPreference: 'high-performance' }}
+          gl={glConfig}
           camera={{ fov: 50, near: 0.1, far: 500, position: [0, 0, 10] }}
           onCreated={({ gl }) => {
             const el = gl.domElement;
@@ -144,10 +152,9 @@ export function Stage() {
               e.preventDefault();
               useStore.getState().showToast('Graphics context lost. Restoring the view.', 'warn');
             });
-            // render targets are emptied by a lost context, so the nebula is baked again
+            // the same canvas and context come back; the Backdrop bakes its own nebula again when this fires
             el.addEventListener('webglcontextrestored', () => {
               useStore.getState().showToast('Graphics restored.');
-              setEpoch((n) => n + 1);
             });
           }}
         >
